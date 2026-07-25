@@ -42,3 +42,10 @@ class ProcesarSalida(BaseModel):
 
 class ConfirmacionRespuesta(BaseModel):
     ok: bool
+
+class AsesorEntrada(BaseModel):
+    id_lead : uuid.UUID
+
+class AsesorSalida(BaseModel):
+    id_asesor : uuid.UUID
+    nombre_asesor : str

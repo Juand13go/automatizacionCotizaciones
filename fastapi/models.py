@@ -20,18 +20,19 @@ class mensajes(SQLModel, table=True):
     contenido: str
     creado_en : datetime = Field(default_factory=datetime.now)
 
-class asesor(SQLModel, table=True):
+class asesores(SQLModel, table=True):
     id_asesor : UUID = Field(default_factory=uuid.uuid4, primary_key=True)
-    nombre_asesor : str
+    nombre_asesor : str 
  
 class leads(SQLModel, table=True):
     id_lead: UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     id_conversacion: UUID = Field(foreign_key="conversaciones.id_conversacion")
     productos_interes: str
+    estado_lead : str = Field(default="en_proceso")
     ciudad: str
     lead_creado_en: datetime = Field(default_factory=datetime.now)
-    asesor_encargado: Optional[UUID] = Field(default=None, foreign_key="asesor.id_asesor")
-
+    asesor_encargado: Optional[UUID] = Field(default=None, foreign_key="asesores.id_asesor")
+ 
 class productos(SQLModel, table=True):
     id_woocommerce: int = Field(primary_key=True)
     nombre_producto: str
@@ -39,5 +40,3 @@ class productos(SQLModel, table=True):
     precio_venta: Decimal
     categoria: str
     actualizado_en: datetime = Field(default_factory=datetime.now)
-
-    

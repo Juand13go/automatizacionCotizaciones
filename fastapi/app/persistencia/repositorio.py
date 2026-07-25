@@ -1,5 +1,5 @@
-from models import conversaciones, mensajes, leads, productos
-from sqlmodel import select, Session
+from models import conversaciones, mensajes, leads, productos, asesores
+from sqlmodel import select, Session, func
 import uuid
 from app.excepciones import ConversacionNoEncontrada
 
@@ -49,3 +49,20 @@ def crear_lead(id_conversacion: uuid.UUID, productos_interes: str, ciudad: str, 
 
 def obtener_productos(session: Session):
     return session.exec(select(productos)).all()  
+
+def lista_asesores(session: Session):
+    return session.exec(select(asesores.id_asesor)).all()
+
+def comparacion(id_asesor: uuid.UUID, session: Session):
+    return session.exec(select(func.count(leads.id_lead)).where(leads.asesor_encargado == id_asesor, leads.estado_lead == "en_proceso")).one()
+
+def obtener_lead_por_id(id_lead: uuid.UUID, session:Session):
+    return session.get(leads, id_lead)
+
+def actualizar_asesor(lead: leads, session: Session):
+    session.add(lead)
+    session.commit()
+    session.refresh(lead)
+    return lead
+    
+

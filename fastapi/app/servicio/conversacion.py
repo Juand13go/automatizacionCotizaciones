@@ -1,6 +1,6 @@
 from sqlmodel import Session
-from app.persistencia.repositorio import creacion_conversacion, verificacion_existencia_conversacion, historial_conversacion, guardar_mensaje_por_rol
-from app.persistencia.repositorio import crear_lead, actualizar_estado_conversacion, obtener_productos
+from app.persistencia.repositorio import creacion_conversacion, verificacion_existencia_conversacion, historial_conversacion, guardar_mensaje_por_rol, obtener_lead_por_id
+from app.persistencia.repositorio import crear_lead, actualizar_estado_conversacion, obtener_productos, actualizacion_asesor, lista_asesores, comparacion, actualizar_asesor
 import uuid
 from openai import OpenAI, OpenAIError
 import json
@@ -111,3 +111,27 @@ def comunicacion_agente(id_conversacion: uuid.UUID, session: Session):
             "productos_interes": "",
             "ciudad": ""
         }
+
+
+def menos_cargado(session: Session):
+    asesores = lista_asesores(session)
+    menos_cargado = 999
+    id_menos_cargado = None
+    for id_asesor in asesores:
+        comp = comparacion(id_asesor, session)
+        if comp < menos_cargado:
+            menos_cargado = comp
+            id_menos_cargado = id_asesor
+    return id_menos_cargado
+
+def actualizacion_asesor(id_lead: uuid.UUID, session: Session):
+    lead = obtener_lead_por_id(id_lead, session)
+
+    if not lead: 
+        return None
+
+    if not lead.asesor_encargado:
+        asesor_encargado = menos_cargado(session)
+        lead.asesor_encargado = asesor_encargado
+        actualizar_asesor(lead, session)
+    return lead
