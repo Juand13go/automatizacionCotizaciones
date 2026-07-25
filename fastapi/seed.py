@@ -47,7 +47,7 @@ def poblar_asesores():
             })  
         session.commit()
         with open("asesores.json", "w", encoding="utf-8") as mod:
-            json.dump(persistir, mod, indent=4)
+            json.dump(persistir, mod, indent=4, ensure_ascii=False)
 
 
 
