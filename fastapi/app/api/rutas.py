@@ -3,7 +3,7 @@ from database import get_session
 from app.servicio.conversacion import obtener_o_crear_conversacion, obtener_historial_conversacion, guardado_mensajes, actualizacion_estado, creacion_lead
 from app.servicio.conversacion import comunicacion_agente, actualizacion_asesor
 import uuid
-from app.api.schemas import ConversacionCrear, GuardarMensajeEntrada, EstadoEntrada, LeadEntrada, ProcesarEntrada, AsesorEntrada
+from app.api.schemas import ConversacionCrear, GuardarMensajeEntrada, EstadoEntrada, LeadEntrada, ProcesarEntrada, AsesorEntrada, LeadSalida
 from app.api.schemas import ConversacionRespuesta, MensajeRespuesta, EstadoSalida, ProcesarSalida, ConfirmacionRespuesta, AsesorSalida
 
 router = APIRouter()
@@ -25,15 +25,14 @@ def guardar_mensaje(datos: GuardarMensajeEntrada, session = Depends(get_session)
 def actualizar_estado(datos: EstadoEntrada, session = Depends(get_session)):
     return actualizacion_estado(estado=datos.estado, id_conversacion=datos.id_conversacion, session=session)
 
-@router.post('/crear_lead', response_model=ConfirmacionRespuesta)
+@router.post('/crear_lead', response_model=LeadSalida)
 def creacion_de_leads(datos: LeadEntrada, session = Depends(get_session)):
-    creacion_lead(id_conversacion=datos.id_conversacion, productos_interes=datos.productos_interes, ciudad=datos.ciudad, session=session)
-    return {"ok": True}
-
+    return creacion_lead(id_conversacion=datos.id_conversacion, productos_interes=datos.productos_interes, ciudad=datos.ciudad, session=session)
+    
 @router.post('/procesar', response_model=ProcesarSalida)
 def procesar(datos: ProcesarEntrada,  session = Depends(get_session)):
     return comunicacion_agente(id_conversacion=datos.id_conversacion, session=session)
 
-@router.post('/asignar_asesor', response_model=AsesorSalida)
+@router.put('/asignar_asesor', response_model=AsesorSalida)
 def asignar_asesor(datos: AsesorEntrada, session = Depends(get_session)):
     return actualizacion_asesor(id_lead=datos.id_lead, session=session)

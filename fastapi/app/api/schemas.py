@@ -40,6 +40,9 @@ class ProcesarSalida(BaseModel):
     productos_interes : Optional[str]
     ciudad : Optional[str]
 
+class LeadSalida(BaseModel):
+    id_lead : uuid.UUID
+
 class ConfirmacionRespuesta(BaseModel):
     ok: bool
 
@@ -47,5 +50,4 @@ class AsesorEntrada(BaseModel):
     id_lead : uuid.UUID
 
 class AsesorSalida(BaseModel):
-    id_asesor : uuid.UUID
-    nombre_asesor : str
+    asesor_encargado : uuid.UUID
