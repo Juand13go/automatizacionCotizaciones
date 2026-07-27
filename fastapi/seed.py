@@ -25,30 +25,16 @@ with open("asesores.json", "r", encoding="utf-8") as a:
     
 def poblar_asesores():
     with Session(engine) as session:
-        persistir = []
         for ases in datos_asesores:
-            id_asesor = ases.get("id_asesor")
-            existe = None
-
-            if id_asesor:
-                existe = session.exec(select(asesores).where(asesores.id_asesor == id_asesor)).first()
+            existe = session.exec(select(asesores).where(asesores.id_asesor == ases["id_asesor"])).first()
 
             if not existe:
                 asesor = asesores(**ases)
                 session.add(asesor)
                 print(f"El asesor {asesor.nombre_asesor} fue agregado con éxito.")
             else:
-                asesor = existe
                 print(f"El asesor {ases['nombre_asesor']} ya existe en la base de datos.")
-
-            persistir.append({
-                "id_asesor" : str(asesor.id_asesor),
-                "nombre_asesor" : asesor.nombre_asesor,
-                "chat_id" : asesor.chat_id
-            })  
         session.commit()
-        with open("asesores.json", "w", encoding="utf-8") as mod:
-            json.dump(persistir, mod, indent=4, ensure_ascii=False)
 
 
 
