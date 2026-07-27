@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, status
 from database import get_session
 from app.servicio.conversacion import obtener_o_crear_conversacion, obtener_historial_conversacion, guardado_mensajes, actualizacion_estado, creacion_lead
-from app.servicio.conversacion import comunicacion_agente, actualizacion_asesor
+from app.servicio.conversacion import comunicacion_agente, actualizacion_asesor, obtener_nombre_asesor
 import uuid
-from app.api.schemas import ConversacionCrear, GuardarMensajeEntrada, EstadoEntrada, LeadEntrada, ProcesarEntrada, AsesorEntrada, LeadSalida
-from app.api.schemas import ConversacionRespuesta, MensajeRespuesta, EstadoSalida, ProcesarSalida, ConfirmacionRespuesta, AsesorSalida
+from app.api.schemas import ConversacionCrear, GuardarMensajeEntrada, EstadoEntrada, LeadEntrada, ProcesarEntrada, AsesorEntrada, LeadSalida, ObtenerAsesorEntrada
+from app.api.schemas import ConversacionRespuesta, MensajeRespuesta, EstadoSalida, ProcesarSalida, ConfirmacionRespuesta, AsesorSalida, ObtenerAsesorSalida
 
 router = APIRouter()
 
@@ -36,3 +36,7 @@ def procesar(datos: ProcesarEntrada,  session = Depends(get_session)):
 @router.put('/asignar_asesor', response_model=AsesorSalida)
 def asignar_asesor(datos: AsesorEntrada, session = Depends(get_session)):
     return actualizacion_asesor(id_lead=datos.id_lead, session=session)
+
+@router.get('/obtener_asesor', response_model=ObtenerAsesorSalida)
+def obtener_asesor(datos: ObtenerAsesorEntrada, session = Depends(get_session)):
+    return obtener_nombre_asesor(id_asesor=datos.id_asesor, session=session)

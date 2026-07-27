@@ -1,18 +1,22 @@
 [
     {
         "id_asesor": "a24f0b84-9264-49fd-b1ad-25d985feeeb8",
-        "nombre_asesor": "Juan Diego Ram\u00edrez Rend\u00f3n"
+        "nombre_asesor": "Juan Diego Ramírez Rendón",
+        "chat_id": "6560871955"
     },
     {
         "id_asesor": "34ce53f9-d16c-4784-8ef6-807e60f1cfa4",
-        "nombre_asesor": "Natalia Ram\u00edrez Rend\u00f3n"
+        "nombre_asesor": "Natalia Ramírez Rendón",
+        "chat_id": "6560871955"
     },
     {
         "id_asesor": "708f1898-ed4a-4320-b18f-dae9e61efd34",
-        "nombre_asesor": "N\u00e9stor Alirio Ram\u00edrez Zuluaga"
+        "nombre_asesor": "Néstor Alirio Ramírez Zuluaga",
+        "chat_id": "6560871955"
     },
     {
         "id_asesor": "92124eff-8bfe-40d0-b566-8830ae7c931e",
-        "nombre_asesor": "Ilda Nora Rend\u00f3n Pulgar\u00edn"
+        "nombre_asesor": "Ilda Nora Rendón Pulgarín",
+        "chat_id": "6560871955"
     }
 ]

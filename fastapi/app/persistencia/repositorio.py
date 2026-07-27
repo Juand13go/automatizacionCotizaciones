@@ -64,5 +64,8 @@ def actualizar_asesor(lead: leads, session: Session):
     session.commit()
     session.refresh(lead)
     return lead
+
+def obtener_asesor_por_id(id_asesor: uuid.UUID, session: Session):
+    return session.exec(select(asesores).where(asesores.id_asesor == id_asesor)).one()
     
 

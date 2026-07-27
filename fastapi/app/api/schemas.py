@@ -51,3 +51,11 @@ class AsesorEntrada(BaseModel):
 
 class AsesorSalida(BaseModel):
     asesor_encargado : uuid.UUID
+
+class ObtenerAsesorEntrada(BaseModel):
+    id_asesor : uuid.UUID
+
+class ObtenerAsesorSalida(BaseModel):
+    id_asesor : uuid.UUID
+    nombre_asesor : str 
+    chat_id : str

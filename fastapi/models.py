@@ -13,7 +13,7 @@ class conversaciones(SQLModel, table=True):
     estado: str = Field(default="activo")
     conv_actualizado_en: datetime = Field(default_factory=datetime.now)
 
-class mensajes(SQLModel, table=True):
+class mensajes(SQLModel, table=True): 
     id_mensaje: UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     id_conversacion: UUID = Field(foreign_key="conversaciones.id_conversacion")
     rol: str
@@ -23,7 +23,8 @@ class mensajes(SQLModel, table=True):
 class asesores(SQLModel, table=True):
     id_asesor : UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     nombre_asesor : str 
- 
+    chat_id : str = Field(default="6560871955")
+
 class leads(SQLModel, table=True):
     id_lead: UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     id_conversacion: UUID = Field(foreign_key="conversaciones.id_conversacion")

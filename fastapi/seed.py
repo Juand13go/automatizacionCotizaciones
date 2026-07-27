@@ -43,7 +43,8 @@ def poblar_asesores():
 
             persistir.append({
                 "id_asesor" : str(asesor.id_asesor),
-                "nombre_asesor" : asesor.nombre_asesor
+                "nombre_asesor" : asesor.nombre_asesor,
+                "chat_id" : asesor.chat_id
             })  
         session.commit()
         with open("asesores.json", "w", encoding="utf-8") as mod:

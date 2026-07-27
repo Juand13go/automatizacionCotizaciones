@@ -1,6 +1,6 @@
 from sqlmodel import Session
 from app.persistencia.repositorio import creacion_conversacion, verificacion_existencia_conversacion, historial_conversacion, guardar_mensaje_por_rol, obtener_lead_por_id
-from app.persistencia.repositorio import crear_lead, actualizar_estado_conversacion, obtener_productos, lista_asesores, comparacion, actualizar_asesor
+from app.persistencia.repositorio import crear_lead, actualizar_estado_conversacion, obtener_productos, lista_asesores, comparacion, actualizar_asesor, obtener_asesor_por_id
 import uuid
 from openai import OpenAI, OpenAIError
 import json
@@ -136,4 +136,5 @@ def actualizacion_asesor(id_lead: uuid.UUID, session: Session):
         actualizar_asesor(lead, session)
     return lead
 
-
+def obtener_nombre_asesor(id_asesor: uuid.UUID, session: Session):
+    return obtener_asesor_por_id(id_asesor, session)
