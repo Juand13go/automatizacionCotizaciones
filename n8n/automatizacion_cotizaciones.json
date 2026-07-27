@@ -239,7 +239,7 @@
     },
     {
       "parameters": {
-        "chatId": "6560871955",
+        "chatId": "={{ $('Obtener nombre asesor').item.json.chat_id }}",
         "text": "=🚨 ¡NUEVO LEAD ASIGNADO - INDUSTRIAS RAMBLER S.A.! 🚨\n\n¡Saludos, Juan Diego y equipo comercial! Se ha generado una nueva oportunidad de venta que requiere atención humana inmediata.\n\n📋 DATOS DEL PROSPECTO:\n• Cliente: {{ $('Telegram Trigger').item.json.message.from.first_name }} {{ $('Telegram Trigger').item.json.message.from.last_name }}\n• Ubicación: {{ $('Creación Lead').item.json.ciudad }}\n• Productos de Interés: {{ $('Creación Lead').item.json.productos_interes }}\n\n🆔 CONTROL INTERNO:\n• ID Lead: {{ $('Creación Lead').item.json.id_lead }}\n\nPor favor, pónganse en contacto con el cliente a la brevedad para asegurar el cierre de la venta y asesorarlo en su descanso. 🛏️✨",
         "additionalFields": {
           "appendAttribution": "={{ false }}"
@@ -248,7 +248,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        768,
+        976,
         0
       ],
       "id": "e56c3933-9126-4c25-894f-970e1a0e6f0a",
@@ -264,7 +264,7 @@
     {
       "parameters": {
         "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
-        "text": "¡Listo! Recibimos tus datos a la perfección. En Industrias Rambler S.A. sabemos que tu descanso no puede esperar, así que uno de nuestros asesores especializados se pondrá en contacto contigo muy pronto para ayudarte a encontrar el colchón ideal para tus sueños. 🛏️✨",
+        "text": "=¡Excelente! Hemos recibido tus datos correctamente. 🛋️\n\nTu solicitud quedó en manos del asesor {{ $json.nombre_asesor }}, quien se pondrá en contacto contigo en breve. En Industrias Rambler S.A. sabemos lo importante que es tu tranquilidad y estamos listos para llevar tu descanso al siguiente nivel. 🛏️✨",
         "additionalFields": {
           "appendAttribution": "={{ false }}"
         }
@@ -272,7 +272,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        592,
+        800,
         0
       ],
       "id": "63ee0ee7-2983-444f-92ae-64a1310775bc",
@@ -332,6 +332,29 @@
       ],
       "id": "3317fbd7-bb2e-41df-88b0-7e1ec85ff084",
       "name": "Asignar Asesor"
+    },
+    {
+      "parameters": {
+        "url": "http://fastapi:8000/obtener_asesor",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "id_asesor",
+              "value": "={{ $json.asesor_encargado }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        608,
+        0
+      ],
+      "id": "ef80852e-8e96-4bca-b514-a46883479617",
+      "name": "Obtener nombre asesor"
     }
   ],
   "pinData": {},
@@ -450,6 +473,17 @@
       "main": [
         [
           {
+            "node": "Obtener nombre asesor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtener nombre asesor": {
+      "main": [
+        [
+          {
             "node": "Confirmacion de la escalación del lead",
             "type": "main",
             "index": 0
@@ -463,7 +497,7 @@
     "executionOrder": "v1",
     "binaryMode": "separate"
   },
-  "versionId": "e2b843d9-5362-489a-8254-9d417eb5971f",
+  "versionId": "040eb33b-daf9-48a8-86ab-2e1b5a7417fc",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "ba694f203369973f9a895ecf6095fd68c833dd936bcdc4bc75604940dc2acbc5"
