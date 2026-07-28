@@ -14,12 +14,12 @@
         -1456,
         208
       ],
-      "id": "406ad947-f0f7-4114-874c-68922653f5a6",
+      "id": "0089376f-aaaa-4a25-b2c4-238b8d4795f2",
       "name": "Telegram Trigger",
       "webhookId": "c0896c63-3263-4817-8f26-d8becc68d2df",
       "credentials": {
         "telegramApi": {
-          "id": "ffmrOiFKjfW15PJr",
+          "id": "4lGRXhpjHhX90ldS",
           "name": "Telegram account"
         }
       }
@@ -53,7 +53,7 @@
         -1248,
         208
       ],
-      "id": "a1dce9a2-77b4-45ac-b53f-7535744ce52a",
+      "id": "b50f5444-60d3-4969-9a38-f2cc35f3717f",
       "name": "Búsqueda/Creación Conversación (FastAPI)"
     },
     {
@@ -85,7 +85,7 @@
         -1040,
         208
       ],
-      "id": "3b8127cb-311a-4879-81fa-d90f97dc0b0a",
+      "id": "a778d0d2-15e2-4069-b8c0-dd3451e21b95",
       "name": "Guardar Mensaje Cliente"
     },
     {
@@ -117,7 +117,7 @@
         -608,
         208
       ],
-      "id": "5be4748d-5f55-4cf4-b1b0-ba7308a27010",
+      "id": "9a19ea1f-5ad0-48d6-bda9-dd19f2547ff5",
       "name": "Guardar Mensaje Agente IA"
     },
     {
@@ -141,7 +141,7 @@
         -816,
         208
       ],
-      "id": "f118c423-309a-45d2-8413-bdb9a6406a12",
+      "id": "4c65ef88-c6cc-4e8a-a9bb-ec6b7da5ad3f",
       "name": "Procesamiento respuesta Agente"
     },
     {
@@ -169,7 +169,7 @@
         0,
         0
       ],
-      "id": "af57b851-80b2-44e1-8901-f99a00e352c8",
+      "id": "acf14f4b-4c3e-4cf0-ac87-8e252b646ad6",
       "name": "Actualización de estado de escalación"
     },
     {
@@ -202,7 +202,7 @@
         -160,
         208
       ],
-      "id": "a0205fa4-f9d5-4c0b-822e-872543f2e775",
+      "id": "37807c3c-40e4-4431-ad38-790f46ef4b16",
       "name": "Rama condicional (Escalación)"
     },
     {
@@ -234,13 +234,13 @@
         192,
         0
       ],
-      "id": "7e23a4d4-c354-4616-94da-aba12bf890cf",
+      "id": "11e5cc3c-6d56-4694-9614-aff9b3b69005",
       "name": "Creación Lead"
     },
     {
       "parameters": {
-        "chatId": "={{ $('Obtener nombre asesor').item.json.chat_id }}",
-        "text": "=🚨 ¡NUEVO LEAD ASIGNADO - INDUSTRIAS RAMBLER S.A.! 🚨\n\n¡Saludos, Juan Diego y equipo comercial! Se ha generado una nueva oportunidad de venta que requiere atención humana inmediata.\n\n📋 DATOS DEL PROSPECTO:\n• Cliente: {{ $('Telegram Trigger').item.json.message.from.first_name }} {{ $('Telegram Trigger').item.json.message.from.last_name }}\n• Ubicación: {{ $('Creación Lead').item.json.ciudad }}\n• Productos de Interés: {{ $('Creación Lead').item.json.productos_interes }}\n\n🆔 CONTROL INTERNO:\n• ID Lead: {{ $('Creación Lead').item.json.id_lead }}\n\nPor favor, pónganse en contacto con el cliente a la brevedad para asegurar el cierre de la venta y asesorarlo en su descanso. 🛏️✨",
+        "chatId": "={{ $('Obtener asesor').item.json.chat_id }}",
+        "text": "=🚨 ¡NUEVO LEAD ASIGNADO - INDUSTRIAS RAMBLER S.A.! 🚨\n\n¡Saludos, {{ $('Obtener asesor').item.json.nombre_asesor }} y equipo comercial! Se ha generado una nueva oportunidad de venta que requiere atención humana inmediata.\n\n📋 DATOS DEL PROSPECTO:\n• Cliente: {{ $('Telegram Trigger').item.json.message.from.first_name }} {{ $('Telegram Trigger').item.json.message.from.last_name }}\n• Ubicación: {{ $('Procesamiento respuesta Agente').item.json.ciudad }} \n• Productos de Interés: {{ $('Procesamiento respuesta Agente').item.json.productos_interes }}\n\n🆔 CONTROL INTERNO:\n• ID Lead: {{ $('Creación Lead').item.json.id_lead }}\n\nPor favor, pónganse en contacto con el cliente a la brevedad para asegurar el cierre de la venta y asesorarlo en su descanso. 🛏️✨",
         "additionalFields": {
           "appendAttribution": "={{ false }}"
         }
@@ -251,12 +251,12 @@
         976,
         0
       ],
-      "id": "e56c3933-9126-4c25-894f-970e1a0e6f0a",
+      "id": "4f4581af-9d0b-4b32-9b01-d1b00087e227",
       "name": "Alerta al Asesor del Lead",
       "webhookId": "2414b655-22e9-45ab-9c9d-a67b711d19d0",
       "credentials": {
         "telegramApi": {
-          "id": "ffmrOiFKjfW15PJr",
+          "id": "4lGRXhpjHhX90ldS",
           "name": "Telegram account"
         }
       }
@@ -275,12 +275,12 @@
         800,
         0
       ],
-      "id": "63ee0ee7-2983-444f-92ae-64a1310775bc",
+      "id": "7538cf0a-7ba7-46d0-b47d-11eeab94ed92",
       "name": "Confirmacion de la escalación del lead",
       "webhookId": "871214f1-712a-4aad-bf6b-fbd5c989bcdb",
       "credentials": {
         "telegramApi": {
-          "id": "ffmrOiFKjfW15PJr",
+          "id": "4lGRXhpjHhX90ldS",
           "name": "Telegram account"
         }
       }
@@ -299,12 +299,12 @@
         -384,
         208
       ],
-      "id": "e66ad2be-dec2-451c-8c80-a98695216e7e",
+      "id": "6593b7c1-625a-4c65-885b-f8d246dadb3d",
       "name": "Respuesta Agente",
       "webhookId": "50fed24d-0125-491e-8075-07242f44dce4",
       "credentials": {
         "telegramApi": {
-          "id": "ffmrOiFKjfW15PJr",
+          "id": "4lGRXhpjHhX90ldS",
           "name": "Telegram account"
         }
       }
@@ -330,7 +330,7 @@
         400,
         0
       ],
-      "id": "3317fbd7-bb2e-41df-88b0-7e1ec85ff084",
+      "id": "cb06d065-ffa5-4268-9b95-310d7cd3a99c",
       "name": "Asignar Asesor"
     },
     {
@@ -353,8 +353,8 @@
         608,
         0
       ],
-      "id": "ef80852e-8e96-4bca-b514-a46883479617",
-      "name": "Obtener nombre asesor"
+      "id": "8a7f6d56-1e38-48cc-966d-ff9744ec3855",
+      "name": "Obtener asesor"
     }
   ],
   "pinData": {},
@@ -473,14 +473,14 @@
       "main": [
         [
           {
-            "node": "Obtener nombre asesor",
+            "node": "Obtener asesor",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Obtener nombre asesor": {
+    "Obtener asesor": {
       "main": [
         [
           {
@@ -497,11 +497,11 @@
     "executionOrder": "v1",
     "binaryMode": "separate"
   },
-  "versionId": "040eb33b-daf9-48a8-86ab-2e1b5a7417fc",
+  "versionId": "04c0e98f-bf77-4b86-bb8a-2ac451a87dd7",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "ba694f203369973f9a895ecf6095fd68c833dd936bcdc4bc75604940dc2acbc5"
+    "instanceId": "8a31fe4daca2b19f5a6499eda6a73237bd5de291106fc9437d6ed6a3d4d7689f"
   },
-  "id": "iMIx6YdPMnhYwr7C",
+  "id": "KfbUzIoWXUcS9KDB",
   "tags": []
 }

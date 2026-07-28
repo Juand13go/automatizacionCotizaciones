@@ -26,7 +26,10 @@ with open("asesores.json", "r", encoding="utf-8") as a:
 def poblar_asesores():
     with Session(engine) as session:
         for ases in datos_asesores:
-            existe = session.exec(select(asesores).where(asesores.id_asesor == ases["id_asesor"])).first()
+            id_asesor = ases.get("id_asesor")
+
+            if id_asesor:
+                existe = session.exec(select(asesores).where(asesores.id_asesor == id_asesor)).first()
 
             if not existe:
                 asesor = asesores(**ases)
@@ -34,9 +37,8 @@ def poblar_asesores():
                 print(f"El asesor {asesor.nombre_asesor} fue agregado con éxito.")
             else:
                 print(f"El asesor {ases['nombre_asesor']} ya existe en la base de datos.")
+
         session.commit()
-
-
 
 if __name__ == "__main__":
     poblar_productos()

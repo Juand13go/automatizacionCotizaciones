@@ -1,4 +1,5 @@
 from sqlmodel import Session
+from app.excepciones import LeadNoEncontrado
 from app.persistencia.repositorio import creacion_conversacion, verificacion_existencia_conversacion, historial_conversacion, guardar_mensaje_por_rol, obtener_lead_por_id
 from app.persistencia.repositorio import crear_lead, actualizar_estado_conversacion, obtener_productos, lista_asesores, comparacion, actualizar_asesor, obtener_asesor_por_id
 import uuid
@@ -128,7 +129,7 @@ def actualizacion_asesor(id_lead: uuid.UUID, session: Session):
     lead = obtener_lead_por_id(id_lead, session)
 
     if not lead: 
-        return None
+        raise LeadNoEncontrado
 
     if not lead.asesor_encargado:
         asesor_encargado = menos_cargado(session)
