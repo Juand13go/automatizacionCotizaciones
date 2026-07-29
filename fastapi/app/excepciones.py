@@ -3,3 +3,9 @@ class ConversacionNoEncontrada(Exception):
 
 class LeadNoEncontrado(Exception):
     pass
+
+class AsesorNoEncontrado(Exception):
+    pass
+
+class SinAsesoresDisponibles(Exception):
+    pass

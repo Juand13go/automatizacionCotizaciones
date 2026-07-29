@@ -38,5 +38,5 @@ def asignar_asesor(datos: AsesorEntrada, session = Depends(get_session)):
     return actualizacion_asesor(id_lead=datos.id_lead, session=session)
 
 @router.get('/obtener_asesor', response_model=ObtenerAsesorSalida)
-def obtener_asesor(datos: ObtenerAsesorEntrada, session = Depends(get_session)):
-    return obtener_nombre_asesor(id_asesor=datos.id_asesor, session=session)
+def obtener_asesor(id_asesor: uuid.UUID, session = Depends(get_session)):
+    return obtener_nombre_asesor(id_asesor=id_asesor, session=session)

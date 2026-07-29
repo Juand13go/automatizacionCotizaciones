@@ -1,5 +1,5 @@
 from sqlmodel import Session
-from app.excepciones import LeadNoEncontrado
+from app.excepciones import LeadNoEncontrado, SinAsesoresDisponibles
 from app.persistencia.repositorio import creacion_conversacion, verificacion_existencia_conversacion, historial_conversacion, guardar_mensaje_por_rol, obtener_lead_por_id
 from app.persistencia.repositorio import crear_lead, actualizar_estado_conversacion, obtener_productos, lista_asesores, comparacion, actualizar_asesor, obtener_asesor_por_id
 import uuid
@@ -35,7 +35,7 @@ def catalogo_a_texto(session: Session):
     catalogo_productos_variable = "\n".join(catalogo_productos)
     return catalogo_productos_variable
 
-client = OpenAI(api_key=os.getenv("GROQ_API_KEY"), base_url="https://api.groq.com/openai/v1")
+client = OpenAI(api_key=os.getenv("GROQ_API_KEY"), base_url="https://api.groq.com/openai/v1") 
 
 def comunicacion_agente(id_conversacion: uuid.UUID, session: Session):
     historial = obtener_historial_conversacion(id_conversacion=id_conversacion, session=session)
@@ -113,17 +113,13 @@ def comunicacion_agente(id_conversacion: uuid.UUID, session: Session):
             "ciudad": ""
         }
 
-
 def menos_cargado(session: Session):
     asesores = lista_asesores(session)
-    menos_cargado = 999
-    id_menos_cargado = None
-    for id_asesor in asesores:
-        comp = comparacion(id_asesor, session)
-        if comp < menos_cargado:
-            menos_cargado = comp
-            id_menos_cargado = id_asesor
-    return id_menos_cargado
+
+    if not asesores: 
+        return None
+    
+    return min(asesores, key=lambda id_asesor: comparacion(id_asesor, session))
 
 def actualizacion_asesor(id_lead: uuid.UUID, session: Session):
     lead = obtener_lead_por_id(id_lead, session)
@@ -133,9 +129,15 @@ def actualizacion_asesor(id_lead: uuid.UUID, session: Session):
 
     if not lead.asesor_encargado:
         asesor_encargado = menos_cargado(session)
+
+        if not asesor_encargado:
+            logger.error(f"La variable id_menos_cargado llego con valor {asesor_encargado}, verificar existencia de asesores.")
+            raise SinAsesoresDisponibles
+
         lead.asesor_encargado = asesor_encargado
         actualizar_asesor(lead, session)
     return lead
 
 def obtener_nombre_asesor(id_asesor: uuid.UUID, session: Session):
     return obtener_asesor_por_id(id_asesor, session)
+

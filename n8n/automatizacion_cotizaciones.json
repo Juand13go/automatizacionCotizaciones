@@ -336,8 +336,8 @@
     {
       "parameters": {
         "url": "http://fastapi:8000/obtener_asesor",
-        "sendBody": true,
-        "bodyParameters": {
+        "sendQuery": true,
+        "queryParameters": {
           "parameters": [
             {
               "name": "id_asesor",
@@ -497,7 +497,7 @@
     "executionOrder": "v1",
     "binaryMode": "separate"
   },
-  "versionId": "04c0e98f-bf77-4b86-bb8a-2ac451a87dd7",
+  "versionId": "2e2f1e21-732f-4d07-8f53-e9ef70ba2baa",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "8a31fe4daca2b19f5a6499eda6a73237bd5de291106fc9437d6ed6a3d4d7689f"
