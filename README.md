@@ -26,7 +26,7 @@ Necesitas: Docker y Docker Compose, una cuenta de ngrok, un bot de Telegram (cre
 Todas las variables van en un archivo .env en la raíz del proyecto:
 POSTGRES_DB, POSTGRES_USER, POSTGRES_PASSWORD (PostgreSQL)
 N8N_DB, N8N_USER, N8N_PASSWORD (Base de datos y credenciales de n8n)
-WEBHOOK_URL (URL HTTPS que entrega ngrok)
+WEBHOOK_URL (URL HTTPS que entrega cloudfare) 
 GROQ_API_KEY (Agente IA)
 
 El token del bot de Telegram y el consumer key/secret de WooCommerce (sincronización del catálogo) se configuran como credenciales dentro de n8n.
@@ -34,9 +34,9 @@ El token del bot de Telegram y el consumer key/secret de WooCommerce (sincroniza
 ## Cómo levantar el entorno
 Clonar el repositorio
 Crear el .env (ver sección de configuración)
-Para el proxy inverso con ngrok: ngrok http 5678 (Recibirás una URL HTTPS, colócala en la variable WEBHOOK_URL del .env)
+Para el proxy inverso con cloudfare: cloudflared tunnel --url http://localhost:5678 (Recibirás una URL HTTPS, colócala en la variable WEBHOOK_URL del .env)
 docker compose up (al arrancar se ejecutan automáticamente las migraciones con Alembic y el seed.py que puebla el catálogo de productos)
-Abrir n8n en la URL de ngrok (HTTPS) e importar el archivo con el flujo 'automatizacion_cotizaciones.json' (carpeta n8n/)
+Abrir n8n en la URL de cloudfare (HTTPS) e importar el archivo con el flujo 'automatizacion_cotizaciones.json' (carpeta n8n/)
 Configurar la credencial de Telegram en n8n y activar el flujo
 La documentación interactiva de la API queda disponible en http://localhost:8000/docs
 

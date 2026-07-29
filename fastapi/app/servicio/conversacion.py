@@ -113,6 +113,17 @@ def comunicacion_agente(id_conversacion: uuid.UUID, session: Session):
             "ciudad": ""
         }
 
+# def menos_cargado(session: Session):
+#     asesores = lista_asesores(session)
+#     menos_cargado = 999
+#     id_menos_cargado = None
+#     for id_asesor in asesores:
+#         comp = comparacion(id_asesor, session)
+#         if comp < menos_cargado:
+#             menos_cargado = comp
+#             id_menos_cargado = id_asesor
+#     return id_menos_cargado
+
 def menos_cargado(session: Session):
     asesores = lista_asesores(session)
 
