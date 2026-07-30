@@ -1,10 +1,11 @@
 from fastapi import APIRouter, Depends, status
 from database import get_session
 from app.servicio.conversacion import obtener_o_crear_conversacion, obtener_historial_conversacion, guardado_mensajes, actualizacion_estado, creacion_lead
-from app.servicio.conversacion import comunicacion_agente, actualizacion_asesor, obtener_nombre_asesor
+from app.servicio.conversacion import comunicacion_agente, actualizacion_asesor, obtener_nombre_asesor, listar_leads_por_asesor, cambiar_estado_lead_para_cierre
 import uuid
-from app.api.schemas import ConversacionCrear, GuardarMensajeEntrada, EstadoEntrada, LeadEntrada, ProcesarEntrada, AsesorEntrada, LeadSalida, ObtenerAsesorEntrada
-from app.api.schemas import ConversacionRespuesta, MensajeRespuesta, EstadoSalida, ProcesarSalida, ConfirmacionRespuesta, AsesorSalida, ObtenerAsesorSalida
+from app.api.schemas import ConversacionCrear, GuardarMensajeEntrada, EstadoEntrada, LeadEntrada, ProcesarEntrada, LeadSalida, LeadsPorAsesor, CerrarLeadSalida
+from app.api.schemas import (ConversacionRespuesta, MensajeRespuesta, EstadoSalida, ProcesarSalida, ConfirmacionRespuesta, AsesorSalida, ObtenerAsesorSalida, 
+                            CerrarLeadEntrada, AsesorEntrada)
 
 router = APIRouter()
 
@@ -39,4 +40,12 @@ def asignar_asesor(datos: AsesorEntrada, session = Depends(get_session)):
 
 @router.get('/obtener_asesor', response_model=ObtenerAsesorSalida)
 def obtener_asesor(id_asesor: uuid.UUID, session = Depends(get_session)):
-    return obtener_nombre_asesor(id_asesor=id_asesor, session=session)
+    return obtener_nombre_asesor(id_asesor=id_asesor, session=session) 
+
+@router.get('/leads_por_asesor', response_model=list[LeadsPorAsesor])
+def leads_por_asesor(id_asesor: uuid.UUID, session = Depends(get_session)):
+    return listar_leads_por_asesor(id_asesor=id_asesor, session=session)
+
+@router.put('/cerrar_lead', response_model=CerrarLeadSalida)
+def cerrar_lead(datos: CerrarLeadEntrada, session=Depends(get_session)):
+    return cambiar_estado_lead_para_cierre(id_lead = datos.id_lead, estado_lead = datos.estado_lead, session=session)

@@ -1,7 +1,7 @@
 from models import conversaciones, mensajes, leads, productos, asesores
 from sqlmodel import select, Session, func
 import uuid
-from app.excepciones import ConversacionNoEncontrada, AsesorNoEncontrado
+from app.excepciones import ConversacionNoEncontrada, AsesorNoEncontrado, LeadNoEncontrado
 
 def verificacion_existencia_conversacion(canal_user_id:str, session: Session): 
     conversacion = session.exec(select(conversaciones).where(conversaciones.canal_user_id == canal_user_id)).first()
@@ -71,4 +71,19 @@ def obtener_asesor_por_id(id_asesor: uuid.UUID, session: Session):
     if not obtener: 
         raise AsesorNoEncontrado
     return obtener
+
+def obtener_leads_por_asesor(id_asesor: uuid.UUID, session: Session):
+    return session.exec(select(leads).where(leads.asesor_encargado == id_asesor, leads.estado_lead == "en_proceso")).all()
+
+def actualizar_estado_cierre(id_lead: uuid.UUID, estado_lead: str, session: Session): 
+    lead = session.get(leads, id_lead)
+    if not lead: 
+        raise LeadNoEncontrado
+    lead.estado_lead = estado_lead
+    session.add(lead)
+    session.commit()
+    session.refresh(lead)
+    return lead
+    
+    
 
