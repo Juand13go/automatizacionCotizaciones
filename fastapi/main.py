@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request
 from app.api.rutas import router
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 from app.excepciones import ConversacionNoEncontrada, LeadNoEncontrado, AsesorNoEncontrado, SinAsesoresDisponibles
 import logging
 
@@ -8,6 +9,8 @@ logging.basicConfig(level=logging.ERROR)
 
 app = FastAPI()
 app.include_router(router)
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.exception_handler(ConversacionNoEncontrada)
 def manejar_conversacion_no_encontrada(request: Request, exc: ConversacionNoEncontrada):

@@ -34,7 +34,7 @@ El token del bot de Telegram y el consumer key/secret de WooCommerce (sincroniza
 ## Cómo levantar el entorno
 Clonar el repositorio
 Crear el .env (ver sección de configuración)
-Para el proxy inverso con cloudfare: cloudflared tunnel --url http://localhost:5678 (Recibirás una URL HTTPS, colócala en la variable WEBHOOK_URL del .env)
+Para el proxy inverso con cloudfare: "cloudflared tunnel --url http://localhost:5678" (Recibirás una URL HTTPS como esta: "https://vitamin-barrier-odds-performing.trycloudflare.com", colócala en la variable WEBHOOK_URL del .env)
 docker compose up (al arrancar se ejecutan automáticamente las migraciones con Alembic y el seed.py que puebla el catálogo de productos)
 Abrir n8n en la URL de cloudfare (HTTPS) e importar el archivo con el flujo 'automatizacion_cotizaciones.json' (carpeta n8n/)
 Configurar la credencial de Telegram en n8n y activar el flujo
