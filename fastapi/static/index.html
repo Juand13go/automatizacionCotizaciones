@@ -15,96 +15,134 @@
     <br>
     <label>Ingrese el ID del asesor: </label>
     <input type="text" id="inputAsesorId" placeholder="UUID Asesor">
-    <button id="btnBuscarLeads">Buscar</button> 
+    <button id="btnBuscarLeads">Buscar</button>
+    <ul id="contenedorLeads"></ul>
 </body>
 
 <script>
     const btnListarAsesores = document.getElementById("btnListarAsesores");
-const contenedorAsesores = document.getElementById("contenedorAsesores")
+    const contenedorAsesores = document.getElementById("contenedorAsesores");
+    const inputAsesorId = document.getElementById("inputAsesorId");
+    const btnBuscarLeads = document.getElementById("btnBuscarLeads");
+    const contenedorLeads = document.getElementById("contenedorLeads");
 
-async function cargarLeadsPorAsesor(idAsesor) {
-    try {
-        const response = await fetch(`/leads_por_asesor?id_asesor=${idAsesor}`);
+    async function cargarLeadsPorAsesor(idAsesor) {
+        try {
+            const response = await fetch(`/leads_por_asesor?id_asesor=${idAsesor}`);
 
-        if(!response.ok) {
-            throw new Error(`Error en la petición: ${response.status}`);
+            if(!response.ok) {
+                throw new Error(`Error en la petición: ${response.status}`);
+            }
+
+            const leads = await response.json();
+
+            console.log("Lista de leads obtenida: ", leads);
+            return leads;
+        }catch(error){
+            console.error("Hubo un error al cargar los leads. ", error);
+        }
+    }
+
+    function renderizarLeads(listaDeLeads){
+        contenedorLeads.innerHTML = "";
+
+        if (listaDeLeads.length === 0){
+            contenedorLeads.innerHTML = "<li>No hay leads asignados a este asesor.</li>"
+            return; 
         }
 
-        const leads = await response.json();
+        listaDeLeads.forEach(lead => {
+            const li = document.createElement("li");
+            li.textContent = `Lead ID: ${lead.id_lead}, ID Conversacion: ${lead.id_conversacion}, Productos de Interes: ${lead.productos_interes}, Ciudad: ${lead.ciudad}`;
 
-        console.log("Lista de leads obtenida: ", leads);
-        return leads;
-    }catch(error){
-        console.error("Hubo un error al cargar los leads. ", error);
+            contenedorLeads.appendChild(li);
+        }) 
     }
-}
 
-async function listarInformacionAsesores(){
-    try {
-        const response = await fetch(`/listar_asesores`);
 
-        if(!response.ok) {
-            throw new Error(`Error en la petición: ${response.status}`);
+    btnBuscarLeads.addEventListener("click", async () => {
+        const idAsesor = inputAsesorId.value.trim();
+
+        if(!idAsesor) {
+            alert("Por favor ingrese un UUID válido.");
+            return; 
         }
 
-        const asesores = await response.json();
-        console.log("Lista de asesores obtenida: ", asesores);
-        return asesores;
-    }catch(error){
-        console.error("Hubo un error al cargar los asesores. ", error);
-    }
-}
-
-
-async function ejecutarCierreLead(idLead, estado) {
-    try{
-        const response = await fetch('/cerrar_lead', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                id_lead: idLead,
-                estado_lead: estado
-            })
-        });
-
-        if(!response.ok){
-            throw new Error(`No se pudo cerrar el lead. Status: ${response.status}`);
+        const leads = await cargarLeadsPorAsesor(idAsesor);
+        if(leads){
+            renderizarLeads(leads);
         }
+    })
 
-        const resultado = await response.json();
+    async function listarInformacionAsesores(){
+        try {
+            const response = await fetch(`/listar_asesores`);
 
-        console.log("Lead cerrado exitosamente: ", resultado);
-        return resultado
-    } catch(error) {
-        console.error("Error al cerrar el lead", error);
+            if(!response.ok) {
+                throw new Error(`Error en la petición: ${response.status}`);
+            }
+
+            const asesores = await response.json();
+            console.log("Lista de asesores obtenida: ", asesores);
+            return asesores;
+        }catch(error){
+            console.error("Hubo un error al cargar los asesores. ", error);
+        }
     }
-}
 
-function renderizarAsesores(listaAsesores){
-    contenedorAsesores.innerHTML = "";
-    
-    if(!listaAsesores || listaAsesores.length === 0){
-        contenedorAsesores.innerHTML = "<li>No hay asesores registrados.</li>";
-        return; 
-    }
-    
-    listaAsesores.forEach(asesor => {
-        const li = document.createElement("li");
-        li.textContent = `Asesor: ${asesor.nombre_asesor}, ID: ${asesor.id_asesor}`;
+    function renderizarAsesores(listaAsesores){
+        contenedorAsesores.innerHTML = "";
         
-        contenedorAsesores.appendChild(li);
-    });
-}
-
-btnListarAsesores.addEventListener("click", async () => {
-
-    const asesores = await listarInformacionAsesores();
-
-    if (asesores) {
-        renderizarAsesores(asesores);
+        if(!listaAsesores || listaAsesores.length === 0){
+            contenedorAsesores.innerHTML = "<li>No hay asesores registrados.</li>";
+            return; 
+        }
+        
+        listaAsesores.forEach(asesor => {
+            const li = document.createElement("li");
+            li.textContent = `Asesor: ${asesor.nombre_asesor}, ID: ${asesor.id_asesor}`;
+            
+            contenedorAsesores.appendChild(li);
+        });
     }
-});
+
+    btnListarAsesores.addEventListener("click", async () => {
+
+        const asesores = await listarInformacionAsesores();
+
+        if (asesores) {
+            renderizarAsesores(asesores);
+        }
+    });
+
+
+    async function ejecutarCierreLead(idLead, estado) {
+        try{
+            const response = await fetch('/cerrar_lead', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id_lead: idLead,
+                    estado_lead: estado
+                })
+            });
+
+            if(!response.ok){
+                throw new Error(`No se pudo cerrar el lead. Status: ${response.status}`);
+            }
+
+            const resultado = await response.json();
+
+            console.log("Lead cerrado exitosamente: ", resultado);
+            return resultado
+        } catch(error) {
+            console.error("Error al cerrar el lead", error);
+        }
+    }
+    
+
+
 </script>
 </html>
