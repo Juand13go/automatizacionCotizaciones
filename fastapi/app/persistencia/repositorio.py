@@ -53,6 +53,9 @@ def obtener_productos(session: Session):
 def lista_asesores(session: Session):
     return session.exec(select(asesores.id_asesor)).all()
 
+def lista_asesores_para_front(session: Session):
+    return session.exec(select(asesores)).all()
+
 def comparacion(id_asesor: uuid.UUID, session: Session):
     return session.exec(select(func.count(leads.id_lead)).where(leads.asesor_encargado == id_asesor, leads.estado_lead == "en_proceso")).one()
 

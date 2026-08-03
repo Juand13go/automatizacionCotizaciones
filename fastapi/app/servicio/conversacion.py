@@ -2,7 +2,7 @@ from sqlmodel import Session
 from app.excepciones import LeadNoEncontrado, SinAsesoresDisponibles
 from app.persistencia.repositorio import creacion_conversacion, verificacion_existencia_conversacion, historial_conversacion, guardar_mensaje_por_rol, obtener_lead_por_id
 from app.persistencia.repositorio import crear_lead, actualizar_estado_conversacion, obtener_productos, lista_asesores, comparacion, actualizar_asesor, obtener_asesor_por_id
-from app.persistencia.repositorio import obtener_leads_por_asesor, actualizar_estado_cierre
+from app.persistencia.repositorio import obtener_leads_por_asesor, actualizar_estado_cierre, lista_asesores_para_front
 import uuid
 from openai import OpenAI, OpenAIError
 import json
@@ -158,4 +158,7 @@ def listar_leads_por_asesor(id_asesor: uuid.UUID, session: Session):
 
 def cambiar_estado_lead_para_cierre(id_lead: uuid.UUID, estado_lead: str, session: Session):
     return actualizar_estado_cierre(id_lead=id_lead, estado_lead=estado_lead, session=session)
+
+def funcion_listado_asesores(session: Session):
+    return lista_asesores_para_front(session=session)
 

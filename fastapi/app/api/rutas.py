@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, status
 from database import get_session
-from app.servicio.conversacion import obtener_o_crear_conversacion, obtener_historial_conversacion, guardado_mensajes, actualizacion_estado, creacion_lead
+from app.servicio.conversacion import obtener_o_crear_conversacion, obtener_historial_conversacion, guardado_mensajes, actualizacion_estado, creacion_lead, funcion_listado_asesores
 from app.servicio.conversacion import comunicacion_agente, actualizacion_asesor, obtener_nombre_asesor, listar_leads_por_asesor, cambiar_estado_lead_para_cierre
 import uuid
 from app.api.schemas import ConversacionCrear, GuardarMensajeEntrada, EstadoEntrada, LeadEntrada, ProcesarEntrada, LeadSalida, LeadsPorAsesor, CerrarLeadSalida
@@ -49,3 +49,7 @@ def leads_por_asesor(id_asesor: uuid.UUID, session = Depends(get_session)):
 @router.put('/cerrar_lead', response_model=CerrarLeadSalida)
 def cerrar_lead(datos: CerrarLeadEntrada, session=Depends(get_session)):
     return cambiar_estado_lead_para_cierre(id_lead = datos.id_lead, estado_lead = datos.estado_lead, session=session)
+
+@router.get('/listar_asesores')
+def listar_asesores_para_front(session=Depends(get_session)):
+    return funcion_listado_asesores(session=session)
