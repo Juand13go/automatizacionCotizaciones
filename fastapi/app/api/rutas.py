@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends
 from database import get_session
 from app.servicio.conversacion import obtener_o_crear_conversacion, obtener_historial_conversacion, guardado_mensajes, actualizacion_estado, creacion_lead, funcion_listado_asesores
 from app.servicio.conversacion import comunicacion_agente, actualizacion_asesor, obtener_nombre_asesor, listar_leads_por_asesor, cambiar_estado_lead_para_cierre
@@ -20,7 +20,7 @@ def cargar_historial(id_conversacion: uuid.UUID, session = Depends(get_session))
 @router.post('/guardar_mensaje', response_model=ConfirmacionRespuesta)
 def guardar_mensaje(datos: GuardarMensajeEntrada, session = Depends(get_session)):
     guardado_mensajes(id_conversacion=datos.id_conversacion, rol=datos.rol, contenido=datos.contenido, session=session)
-    return {"ok": True}
+    return {"ok": True} 
 
 @router.put('/estado', response_model=EstadoSalida)
 def actualizar_estado(datos: EstadoEntrada, session = Depends(get_session)):

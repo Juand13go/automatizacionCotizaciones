@@ -15,7 +15,7 @@ Docker (Herramienta esencial para mantenibilidad, una arquitectura limpia y para
 Migraciones con Alembic
 Schemas de Pydantic (Validación de los datos que entran y salen)
 SQLModel (ORM - Definición de las tablas y comunicación con PostgreSQL)
-ngrok (Proxy inverso para exponer n8n por HTTPS y recibir el webhook de Telegram)
+Cloudfared (Proxy inverso para exponer n8n por HTTPS y recibir el webhook de Telegram)
 Frontend (HTML, CSS y JS) para monitoreo y cierre de los leads
 
 ## Requisitos
