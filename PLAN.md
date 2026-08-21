@@ -193,7 +193,7 @@ La infraestructura es un servidor pequeño. El costo variable es el modelo de le
 se cobra por mensaje procesado y son fracciones de centavo por conversación. Frente al
 costo de un solo negocio perdido, no es comparable.
 
-**"¿Y si el bot responde una barbaridad?"**
+**"¿Y si el bot responde una barbaridad?"**   
 Por eso existe la escalación. El sistema está diseñado para reconocer lo que no debe
 contestar y pasarlo a una persona. Y toda conversación queda registrada, así que siempre
 se puede revisar qué se dijo.
@@ -204,8 +204,9 @@ eso lo correcto es darle acceso a la información, no reentrenar el modelo. Entr
 sido más caro y peor.
 
 **"¿Cuánto se demoró?"**
-[tu respuesta] — y menciona que la mayor parte del tiempo se fue en la arquitectura y el
-modelo de datos, no en el agente. Es cierto y dice mucho de ti.
+Es un desarrollo que empecé en mayo de este año y lo he venido trabajando durante todos estos meses con el 
+objetivo de desarrollar un sistema robusto, usar buenas practicas e implementar un stack real utilizado en proyectos del sector.
+
 
 ---
 
