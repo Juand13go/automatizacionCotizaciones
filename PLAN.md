@@ -221,3 +221,13 @@ objetivo de desarrollar un sistema robusto, usar buenas practicas e implementar 
    sistema.
 
 Tiempo objetivo: dos minutos. Ensáyalo tres veces antes.
+
+## Nombre Repo
+
+Radar: 	Detecta oportunidades comerciales que hoy pasan invisibles.
+
+Qué significa triaje
+
+Viene del francés trier, que es clasificar o escoger. Nació en la medicina de guerra y hoy es lo que se hace en toda sala de urgencias: cuando llegan más pacientes de los que se pueden atender a la vez, alguien los clasifica por gravedad y decide el orden y a quién le corresponde cada uno.
+
+El punto central del triaje es que no se atiende por orden de llegada, sino por criterio. Y ese criterio es explícito, no intuición: hay un protocolo, se aplica igual siempre, y se puede auditar después.
