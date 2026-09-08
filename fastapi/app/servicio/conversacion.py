@@ -36,14 +36,14 @@ def catalogo_a_texto(session: Session):
     catalogo_productos_variable = "\n".join(catalogo_productos)
     return catalogo_productos_variable
 
-client = OpenAI(api_key=os.getenv("GROQ_API_KEY"), base_url="[https://api.groq.com/openai/v1](https://api.groq.com/openai/v1)") 
+client = OpenAI(api_key=os.getenv("GROQ_API_KEY"), base_url="https://api.groq.com/openai/v1") 
 
 def comunicacion_agente(id_conversacion: uuid.UUID, session: Session):
     historial = obtener_historial_conversacion(id_conversacion=id_conversacion, session=session)
     catalogo_productos_variable = catalogo_a_texto(session) 
     try:
         response = client.chat.completions.create(
-            model = "llama-3.1-8b-instant",
+            model = "llama-3.3-70b-versatile",
             max_tokens = 1024,
             messages=[{
                         "role": "system", "content": f"""Eres el agente encargado del manejo de cotizaciones de Industrias Rambler S.A, vas a recibir el historial de un chat con los mensajes del cliente + el catalogo con los productos: {catalogo_productos_variable}. Ten en cuenta que el publico al que te diriges es de Colombia; 
