@@ -36,7 +36,7 @@ def catalogo_a_texto(session: Session):
     catalogo_productos_variable = "\n".join(catalogo_productos)
     return catalogo_productos_variable
 
-client = OpenAI(api_key=os.getenv("GROQ_API_KEY"), base_url="https://api.groq.com/openai/v1") 
+client = OpenAI(api_key=os.getenv("GROQ_API_KEY"), base_url="https://api.groq.com/openai/v1", max_retries=4, timeout=20.0) 
 
 MODELO_AGENTE = os.getenv("GROQ_MODEL", "openai/gpt-oss-20b")
 
@@ -105,15 +105,15 @@ def comunicacion_agente(id_conversacion: uuid.UUID, session: Session):
             "respuesta" : respuesta, 
             "escalar" : escalar,
             "productos_interes": productos_interes,
-            "ciudad": ciudad
+            "ciudad": ciudad 
         }
     except (OpenAIError, json.JSONDecodeError, IndexError, TypeError):
         logger.exception(f"Error en la comunicación con el Agente de Groq [Conversación ID: {id_conversacion}]")
         return {
             "respuesta" : "Lo sentimos, en este momento nuestro sistema de atención presenta un inconveniente técnico temporal. 🛠️ Te invitamos a escribirnos nuevamente en unos minutos mientras lo solucionamos. ¡Agradecemos tu paciencia!", 
             "escalar" : True,
-            "productos_interes": "",
-            "ciudad": ""
+            "productos_interes": "Por confirmar",
+            "ciudad": "Por confirmar"
         }
 
 # def menos_cargado(session: Session):
@@ -163,4 +163,3 @@ def cambiar_estado_lead_para_cierre(id_lead: uuid.UUID, estado_lead: str, sessio
 
 def funcion_listado_asesores(session: Session):
     return lista_asesores_para_front(session=session)
-

@@ -156,3 +156,10 @@ Quedan tres semanas y media hasta el 2 de octubre. El motor difuso es el camino 
 | `productos_interes` es texto libre | Sin normalizar contra el catálogo. Se resuelve con búsqueda semántica. |
 | Imagen `n8n:latest` | Puede actualizarse sola y romper el entorno. Fijar versión. |
 | Prompt versionado como código | Vive dentro de `conversacion.py`, sin historial propio ni evaluación. |
+| Fallo API Groq por exceder el limite de peticiones en un minuto: No todos los fallos son iguales. Un límite de tasa es transitorio y se reintenta. 
+| Un modelo retirado es permanente y hay que escalar. Tratarlos con el mismo except obliga a elegir una respuesta que está mal para uno de los dos casos.
+
+##  Fallo API Groq por exceder el limite de peticiones en un minuto
+No todos los fallos son iguales. Un límite de tasa es transitorio y se reintenta. 
+Un modelo retirado es permanente y hay que escalar. 
+Tratarlos con el mismo except obliga a elegir una respuesta que está mal para uno de los dos casos.
