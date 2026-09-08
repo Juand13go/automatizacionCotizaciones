@@ -1,4 +1,4 @@
-# Automatización de Cotizaciones - Industrias Rambler S.A.
+# TRIAJE LEADS COMERCIALES/RADAR
 Este sistema plantea la automatización del apartado de cotizaciones de la empresa Industrias Rambler S.A.
 El flujo inicia con un mensaje del cliente por alguno de los canales de la empresa (actualmente Telegram), la información de la conversación es almacenada en una BD;
 esta información se recibe y procesa en el archivo de Python (donde vive el agente de IA), este archivo entrega la respuesta del agente junto con los datos del lead
@@ -21,7 +21,7 @@ Frontend (HTML, CSS y JS) para monitoreo y cierre de los leads
 ## Requisitos
 El sistema corre en Docker, esta tecnología se encarga de que el sistema funcione sin tener que instalar nada; las dependencias del proyecto están en el
 requirements.txt.
-Necesitas: Docker y Docker Compose, una cuenta de ngrok, un bot de Telegram (creado con @BotFather) y una API Key de Groq.
+Necesitas: Docker y Docker Compose, un bot de Telegram (creado con @BotFather) y una API Key de Groq.
 
 ## Configuración
 Todas las variables van en un archivo .env en la raíz del proyecto:

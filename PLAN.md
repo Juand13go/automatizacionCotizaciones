@@ -1,4 +1,4 @@
-# PRIMER CONTACTO
+# TRIAJE LEADS COMERCIALES/RADAR
 ### Ningún cliente sin respuesta
 
 **Juan Diego Ramírez Rendón**
@@ -9,7 +9,7 @@ Universidad EIA · Cámara de Comercio Aburrá Sur
 
 ## Qué es
 
-Primer Contacto es un sistema que atiende las solicitudes comerciales que llegan por los
+Radar es un sistema que atiende las solicitudes comerciales que llegan por los
 canales de mensajería de una empresa, las entiende, decide cuáles necesitan a una persona
 y cuáles no, y le entrega al asesor solo lo que vale su tiempo — con el cliente ya
 respondido.
