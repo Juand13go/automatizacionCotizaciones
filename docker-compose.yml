@@ -46,6 +46,7 @@ services: # Sección principal que agrupa y define los contenedores individuales
       DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB} # Construye la URL de conexión usando el nombre del servicio 'postgres' como host
       # ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY} # Línea comentada/desactivada (no se inyecta en el contenedor actualmente)
       GROQ_API_KEY: ${GROQ_API_KEY} # Pasa la API Key de Groq guardada en tu .env para que el cliente OpenAI en main.py pueda autenticarse con los modelos Llama
+      GROQ_MODEL: ${GROQ_MODEL}
     networks: # Conecta el contenedor a la misma red compartida para que tenga línea directa con el motor de base de datos
       - radar_net
     depends_on: # Control de secuencia de arranque y dependencias estructurales

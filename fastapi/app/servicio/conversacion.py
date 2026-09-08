@@ -38,12 +38,14 @@ def catalogo_a_texto(session: Session):
 
 client = OpenAI(api_key=os.getenv("GROQ_API_KEY"), base_url="https://api.groq.com/openai/v1") 
 
+MODELO_AGENTE = os.getenv("GROQ_MODEL", "openai/gpt-oss-20b")
+
 def comunicacion_agente(id_conversacion: uuid.UUID, session: Session):
     historial = obtener_historial_conversacion(id_conversacion=id_conversacion, session=session)
     catalogo_productos_variable = catalogo_a_texto(session) 
     try:
         response = client.chat.completions.create(
-            model = "llama-3.3-70b-versatile",
+            model = MODELO_AGENTE,
             max_tokens = 1024,
             messages=[{
                         "role": "system", "content": f"""Eres el agente encargado del manejo de cotizaciones de Industrias Rambler S.A, vas a recibir el historial de un chat con los mensajes del cliente + el catalogo con los productos: {catalogo_productos_variable}. Ten en cuenta que el publico al que te diriges es de Colombia; 
@@ -109,7 +111,7 @@ def comunicacion_agente(id_conversacion: uuid.UUID, session: Session):
         logger.exception(f"Error en la comunicación con el Agente de Groq [Conversación ID: {id_conversacion}]")
         return {
             "respuesta" : "Lo sentimos, en este momento nuestro sistema de atención presenta un inconveniente técnico temporal. 🛠️ Te invitamos a escribirnos nuevamente en unos minutos mientras lo solucionamos. ¡Agradecemos tu paciencia!", 
-            "escalar" : False,
+            "escalar" : True,
             "productos_interes": "",
             "ciudad": ""
         }
